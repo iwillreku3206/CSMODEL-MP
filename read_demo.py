@@ -5,6 +5,7 @@ import pandas as pd
 import os
 
 from loaders.mapname import get_mapname
+from loaders.ct_team import get_ct_team_for_round, get_ct_teams
 
 # read current directory
 # get list of demos
@@ -30,8 +31,10 @@ def parse_demo(filename: str):
 	players = parser.parse_player_info()
 	mapname = get_mapname(parser)
 	player_teams = parser.parse_ticks(['team_clan_name'], ticks=[100])[['team_clan_name', 'name']]
+	ct_teams = get_ct_teams(parser)
 
 	for r in range(round_count):
+		round_ct_team = get_ct_team_for_round(ct_teams, r)
 		for p in range(players.shape[0]):
 			player_name = players['name'][p]
 			player_team = player_teams.loc[player_teams['name'] == player_name]['team_clan_name'].values[0]
@@ -43,7 +46,7 @@ def parse_demo(filename: str):
 				player_team,       # team_name
 				mapname,           # map_name
 				r + 1,             # round_number
-				None,              # round_ct_team
+				round_ct_team,     # round_ct_team
 				None,              # round_first_site_hit
 				None,              # round_site_hit_time
 				None,              # round_bomb_plant_site
