@@ -4,8 +4,12 @@ from demoparser2 import DemoParser
 import pandas as pd
 import os
 
+from loaders.game_time_offset import get_game_time_offset
 from loaders.mapname import get_mapname
 from loaders.ct_team import get_ct_team_for_round, get_ct_teams
+from loaders.game_time_offset import get_game_time_offset
+from loaders.round_time import get_round_start_times
+from loaders.site_hit import get_site_hit_df, get_site_hit, get_site_hit_time
 
 # read current directory
 # get list of demos
@@ -31,6 +35,9 @@ def parse_demo(filename: str):
 	players = parser.parse_player_info()
 	mapname = get_mapname(parser)
 	player_teams = parser.parse_ticks(['team_clan_name'], ticks=[100])[['team_clan_name', 'name']]
+	game_time_offset = get_game_time_offset(parser)
+	round_start_times = get_round_start_times(parser)
+	site_hit_df = get_site_hit_df(parser)
 	ct_teams = get_ct_teams(parser)
 
 	for r in range(round_count):
@@ -40,38 +47,38 @@ def parse_demo(filename: str):
 			player_team = player_teams.loc[player_teams['name'] == player_name]['team_clan_name'].values[0]
 			# parse each player-round here
 			map_player_rounds += [[
-				matchid,           # match_id
-				mapid,             # map_id
-				r + roundidoffset, # round_id
-				player_team,       # team_name
-				mapname,           # map_name
-				r + 1,             # round_number
-				round_ct_team,     # round_ct_team
-				None,              # round_first_site_hit
-				None,              # round_site_hit_time
-				None,              # round_bomb_plant_site
-				None,              # round_bomb_plant_time
-				None,              # round_length
-				None,              # round_result
-				None,              # round_timeout_called_before
-				player_name,       # player_name
-				None,              # player_flashes_used
-				None,              # player_smokes_used
-				None,              # player_grenades_used
-				None,              # player_molotovs_used
-				None,              # player_incendiaries_used
-				None,              # player_kills
-				None,              # player_died
-				None,              # player_spent_amount
-				[],                # player_loadout
-				None,              # player_damage
-				None,              # round_first_killer
-				None,              # round_first_death
-				None,              # player_headshots
-				None,              # player_torsoshots
-				None,              # player_stomachshots
-				None,              # player_legshots
-				None,              # player_planted_bomb
+				matchid,                            # match_id
+				mapid,                              # map_id
+				r + roundidoffset,                  # round_id
+				player_team,                        # team_name
+				mapname,                            # map_name
+				r + 1,                              # round_number
+				round_ct_team,                      # round_ct_team
+				get_site_hit(site_hit_df, r + 1),   # round_first_site_hit
+				get_site_hit_time(site_hit_df, round_start_times, r + 1),        # round_site_hit_time
+				None,                               # round_bomb_plant_site
+				None,                               # round_bomb_plant_time
+				None,                               # round_length
+				None,                               # round_result
+				None,                               # round_timeout_called_before
+				player_name,                        # player_name
+				None,                               # player_flashes_used
+				None,                               # player_smokes_used
+				None,                               # player_grenades_used
+				None,                               # player_molotovs_used
+				None,                               # player_incendiaries_used
+				None,                               # player_kills
+				None,                               # player_died
+				None,                               # player_spent_amount
+				[],                                 # player_loadout
+				None,                               # player_damage
+				None,                               # round_first_killer
+				None,                               # round_first_death
+				None,                               # player_headshots
+				None,                               # player_torsoshots
+				None,                               # player_stomachshots
+				None,                               # player_legshots
+				None,                               # player_planted_bomb
 			]]
 			pass
 
