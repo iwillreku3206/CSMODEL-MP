@@ -4,6 +4,7 @@ from demoparser2 import DemoParser
 import pandas as pd
 import os
 
+from loaders.bomb_plant import get_bomb_plant_df, get_bomb_plant_site, get_bomb_planter, get_bomb_plant_time
 from loaders.game_time_offset import get_game_time_offset
 from loaders.mapname import get_mapname
 from loaders.ct_team import get_ct_team_for_round, get_ct_teams
@@ -21,12 +22,11 @@ from loaders.site_hit import get_site_hit_df, get_site_hit, get_site_hit_time
 
 def parse_demo(filename: str):
 	# parse filename
-	# file names are a tuple of matchid_mapid_roundidoffset.dem
+	# file names are a tuple of matchid_mapid.dem
 
 	filename_info = filename.split(os.sep)[-1][:-4].split('_')
 	matchid = int(filename_info[0])
 	mapid = int(filename_info[1])
-	roundidoffset = int(filename_info[2])
 
 	map_player_rounds = []
 
@@ -39,6 +39,7 @@ def parse_demo(filename: str):
 	round_start_times = get_round_start_times(parser)
 	site_hit_df = get_site_hit_df(parser)
 	ct_teams = get_ct_teams(parser)
+	bomb_plants = get_bomb_plant_df(parser)
 
 	for r in range(round_count):
 		round_ct_team = get_ct_team_for_round(ct_teams, r)
@@ -49,15 +50,16 @@ def parse_demo(filename: str):
 			map_player_rounds += [[
 				matchid,                            # match_id
 				mapid,                              # map_id
-				r + roundidoffset,                  # round_id
+				0,                                  # round_id; to be fixed when we combine the data
 				player_team,                        # team_name
 				mapname,                            # map_name
 				r + 1,                              # round_number
 				round_ct_team,                      # round_ct_team
-				get_site_hit(site_hit_df, r + 1),   # round_first_site_hit
+				get_site_hit(site_hit_df, r + 1),                                # round_first_site_hit
 				get_site_hit_time(site_hit_df, round_start_times, r + 1),        # round_site_hit_time
-				None,                               # round_bomb_plant_site
-				None,                               # round_bomb_plant_time
+				get_bomb_plant_site(bomb_plants, r),                             # round_bomb_plant_site
+				get_bomb_planter(bomb_plants, r),                                # round_bomb_planter
+				get_bomb_plant_time(bomb_plants, r, round_start_times),          # round_bomb_plant_time
 				None,                               # round_length
 				None,                               # round_result
 				None,                               # round_timeout_called_before
@@ -86,5 +88,5 @@ def parse_demo(filename: str):
 
 
 # if for scripts i forgor how to do
-dem = parse_demo('C:\\Users\\rek\\Downloads\\analyzing_cs2_demo\\0_0_0.dem')
+dem = parse_demo('C:\\Users\\rek\\Downloads\\analyzing_cs2_demo\\14_33.dem')
 print(dem)
