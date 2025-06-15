@@ -11,6 +11,8 @@ from loaders.ct_team import get_ct_team_for_round, get_ct_teams
 from loaders.game_time_offset import get_game_time_offset
 from loaders.round_time import get_round_start_times
 from loaders.site_hit import get_site_hit_df, get_site_hit, get_site_hit_time
+from loaders.round_result import get_round_result_array
+from loaders.round_length import get_round_length_array
 
 # read current directory
 # get list of demos
@@ -37,11 +39,15 @@ def parse_demo(filename: str):
 	player_teams = parser.parse_ticks(['team_clan_name'], ticks=[100])[['team_clan_name', 'name']]
 	game_time_offset = get_game_time_offset(parser)
 	round_start_times = get_round_start_times(parser)
-	site_hit_df = get_site_hit_df(parser)
+	site_hit_df = get_site_hit_df(parser, round_start_times)
 	ct_teams = get_ct_teams(parser)
 	bomb_plants = get_bomb_plant_df(parser)
+	round_results = get_round_result_array(parser)
+	print(round_results)
+	round_lengths = get_round_length_array(parser)
 
 	for r in range(round_count):
+		print("parsed " + str(r) + " rounds")
 		round_ct_team = get_ct_team_for_round(ct_teams, r)
 		for p in range(players.shape[0]):
 			player_name = players['name'][p]
@@ -55,13 +61,13 @@ def parse_demo(filename: str):
 				mapname,                            # map_name
 				r + 1,                              # round_number
 				round_ct_team,                      # round_ct_team
-				get_site_hit(site_hit_df, r + 1),                                # round_first_site_hit
-				get_site_hit_time(site_hit_df, round_start_times, r + 1),        # round_site_hit_time
+				get_site_hit(site_hit_df, r),                                    # round_first_site_hit
+				get_site_hit_time(site_hit_df, round_start_times, r),            # round_site_hit_time
 				get_bomb_plant_site(bomb_plants, r),                             # round_bomb_plant_site
 				get_bomb_planter(bomb_plants, r),                                # round_bomb_planter
 				get_bomb_plant_time(bomb_plants, r, round_start_times),          # round_bomb_plant_time
-				None,                               # round_length
-				None,                               # round_result
+				round_lengths[r],                   # round_length
+				round_results[r],                   # round_result
 				None,                               # round_timeout_called_before
 				player_name,                        # player_name
 				None,                               # player_flashes_used
@@ -88,5 +94,5 @@ def parse_demo(filename: str):
 
 
 # if for scripts i forgor how to do
-dem = parse_demo('C:\\Users\\rek\\Downloads\\analyzing_cs2_demo\\14_33.dem')
-print(dem)
+dem = parse_demo('C:\\Users\\rek\\Downloads\\analyzing_cs2_demo\\28_68.dem')
+pd.DataFrame(dem).to_csv("test.csv")
