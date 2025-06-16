@@ -415,4 +415,5 @@ $RECYCLE.BIN/
 
 # demo storage and csv output - Sean
 demos/
-csv_dump/
+*.dem
+*.csv
