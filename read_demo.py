@@ -17,7 +17,9 @@ from loaders.bomb_plants import load_bomb_plants, get_bomb_planted
 from loaders.bomb_defuse import get_bomb_defuses, is_bomb_defused
 from loaders.round_result import get_round_result_array
 from loaders.round_length import get_round_length_array
-
+from loaders.player_damage import get_player_damage_total_df, get_player_damage, get_total_rounds_played_df
+from loaders.player_death import get_player_death_df, get_player_death, get_total_rounds_played_with_tickset_df
+from loaders.player_spent_amount import get_player_spent_amount_df, get_player_spent
 # read current directory
 # get list of demos
 # parse each demo
@@ -59,6 +61,14 @@ def parse_demo(filename: str):
 	bomb_plants_df = load_bomb_plants(parser)
 	get_bomb_defuses_df = get_bomb_defuses(parser)
 	
+	player_damage_total_df = get_player_damage_total_df(parser)
+	total_rounds_played_df_for_player_damage= get_total_rounds_played_df(parser)
+
+	player_death_df = get_player_death_df(parser)
+	total_rounds_played_df_for_player_death = get_total_rounds_played_with_tickset_df(parser, player_death_df)
+
+	player_spent_amount_df = get_player_spent_amount_df(parser)
+	
 
 	for r in range(round_count):
 		print("parsed " + str(r) + " rounds")
@@ -90,10 +100,10 @@ def parse_demo(filename: str):
 				None,                               										#19 player_molotovs_used
 				None,                               										#20 player_incendiaries_used
 				get_player_kill_count(player_kills_df, r, player_name), #21 player_kills
-				None,                               										#22 player_died
-				None,                               										#23 player_spent_amount
+				get_player_death(player_death_df, total_rounds_played_df_for_player_death, player_name, r),                               										#22 player_died
+				get_player_spent(player_spent_amount_df, player_name, r),                               										#23 player_spent_amount
 				[],                                 										#24 player_loadout
-				None,                               										#25 player_damage
+				get_player_damage(player_damage_total_df, total_rounds_played_df_for_player_damage, player_name, r+1),                               										#25 player_damage
 				None,                               										#26 round_first_killer
 				None,                               										#27 round_first_death
 				get_player_shots(player_headshots_df, 'head', r, player_name), 				#28 player_headshots
@@ -108,5 +118,5 @@ def parse_demo(filename: str):
 
 # if for scripts i forgor how to do
 
-dem = parse_demo('C:\\Users\\rek\\Downloads\\analyzing_cs2_demo\\28_68.dem')
+dem = parse_demo('1_1.dem')
 pd.DataFrame(dem).to_csv("test.csv")
