@@ -104,7 +104,7 @@ def parse_demo(filename: str):
 				None,                               										#20 player_incendiaries_used
 				get_player_kill_count(player_kills_df, r, player_name), #21 player_kills
 				get_player_death(player_death_df, total_rounds_played_df_player_death, player_name, r),                               										#22 player_died
-				get_player_spent(player_spent_amount_df, player_name, r),                               										#23 player_spent_amount
+				get_player_spent(player_spent_amount_df, total_rounds_played_df, player_name, r+1),                               										#23 player_spent_amount
 				[],                                 										#24 player_loadout
 				get_player_damage(player_damage_total_df, total_rounds_played_df, player_name, r+1),                               										#25 player_damage
 				get_round_first_kill(player_death_df, total_rounds_played_df_player_death, player_name, r+1),                               										#26 round_first_killer
@@ -121,5 +121,5 @@ def parse_demo(filename: str):
 
 # if for scripts i forgor how to do
 
-dem = parse_demo('1_1.dem')
+dem = parse_demo('1_2.dem')
 pd.DataFrame(dem).to_csv("test.csv")
