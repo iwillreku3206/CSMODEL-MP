@@ -39,7 +39,6 @@ def get_player_kill_counts(parser: DemoParser) -> pd.DataFrame:
     # rename columns to match that of read_demo.py
     player_kills_df = player_kills_df.rename(
         columns={
-            "total_rounds_played": "round_id",
             "attacker_name": "player_name",
             "kills": "player_kills",
         }
