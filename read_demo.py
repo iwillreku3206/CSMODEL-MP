@@ -47,6 +47,8 @@ def parse_demo(filename: str):
 	player_teams = parser.parse_ticks(['team_clan_name'], ticks=[100])[['team_clan_name', 'name']]
 	game_time_offset = get_game_time_offset(parser)
 	round_start_times = get_round_start_times(parser)
+	round_start_times_df = pd.DataFrame(
+		{"total_rounds_played": [x for x in range(len(round_start_times))], "round_start_time": round_start_times})
 	site_hit_df = get_site_hit_df(parser, round_start_times)
 	ct_teams = get_ct_teams(parser)
 	bomb_plants = get_bomb_plant_df(parser)
