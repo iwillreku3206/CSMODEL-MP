@@ -7,7 +7,19 @@ def get_player_kill_counts(parser: DemoParser) -> pd.DataFrame:
     player_kills_df = parser.parse_event(
         "player_death",
         player=["last_place_name", "team_name"],
-        other=["total_rounds_played", "is_warmup_period"],
+        other=["is_warmup_period", "tick"],
+    )
+
+    round_start_times = list(
+        parser.parse_ticks(
+            ["game_time"], ticks=parser.parse_event("round_freeze_end")["tick"]
+        )
+        .drop_duplicates(subset=["tick"])["tick"]
+        .values
+    ) + [parser.parse_ticks(["tick"]).iloc[-1]["tick"]]
+
+    player_kills_df["round_id"] = pd.cut(
+        player_kills_df["tick"], bins=round_start_times, labels=False, right=True
     )
 
     # filter out team-kills and warmup
@@ -18,7 +30,7 @@ def get_player_kill_counts(parser: DemoParser) -> pd.DataFrame:
     player_kills_df = player_kills_df[player_kills_df["is_warmup_period"] == False]
 
     player_kills_df = (
-        player_kills_df.groupby(["total_rounds_played", "attacker_name"])
+        player_kills_df.groupby(["round_id", "attacker_name"])
         .size()
         .to_frame(name="kills")
         .reset_index()
@@ -27,7 +39,6 @@ def get_player_kill_counts(parser: DemoParser) -> pd.DataFrame:
     # rename columns to match that of read_demo.py
     player_kills_df = player_kills_df.rename(
         columns={
-            "total_rounds_played": "round_id",
             "attacker_name": "player_name",
             "kills": "player_kills",
         }
@@ -43,7 +54,10 @@ def get_player_kill_count(
     Get the player kill count for each round.
     """
 
-    filtered_df = kill_counts_df[(kill_counts_df["player_name"] == player_name) & (kill_counts_df["round_id"] == round_id)]
+    filtered_df = kill_counts_df[
+        (kill_counts_df["player_name"] == player_name)
+        & (kill_counts_df["round_id"] == round_id)
+    ]
 
     if filtered_df.empty:
         return 0
