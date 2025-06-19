@@ -16,7 +16,7 @@ def get_utils_thrown(parser: DemoParser):
 def count_utils_thrown(df: DataFrame, player_name: str, round_start_tick: int, round_end_tick: int, weapon_name: str):
     # Simple filtering since everything is already set up
     filtered_df = df.loc[   (df['tick'] >= round_start_tick) &
-                            (df['tick'] <= round_end_tick) &
+                            (df['tick'] < round_end_tick) &
                             (df['user_name'] == player_name) &
                             (df['weapon'] == weapon_name)]
     return len(filtered_df)
