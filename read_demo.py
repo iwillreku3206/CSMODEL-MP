@@ -22,6 +22,10 @@ from loaders.player_death import get_player_death_df, get_player_death, get_tota
 from loaders.player_spent_amount import get_player_spent_amount_df, get_player_spent
 from loaders.round_first_death import get_round_first_death
 from loaders.round_first_kill import get_round_first_kill
+from loaders.player_utilities import get_utils_thrown, count_utils_thrown
+from loaders.player_loadout import get_all_loadouts_at_round_freeze_end, get_player_loadout_at_round_freeze_end
+from loaders.helper import get_round_start_ticks, get_round_freeze_end_ticks
+
 # read current directory
 # get list of demos
 # parse each demo
@@ -72,8 +76,11 @@ def parse_demo(filename: str):
 	total_rounds_played_df_player_death = get_total_rounds_played_with_tickset_df(parser, player_death_df)
 
 	player_spent_amount_df = get_player_spent_amount_df(parser)
-	
-	
+
+	round_start_ticks = get_round_start_ticks(parser)
+	round_freeze_end_ticks = get_round_freeze_end_ticks(parser)
+	utils_thrown = get_utils_thrown(parser)
+	loadouts = get_all_loadouts_at_round_freeze_end(parser, round_freeze_end_ticks)
 
 	for r in range(round_count):
 		print("parsed " + str(r) + " rounds")
@@ -81,6 +88,12 @@ def parse_demo(filename: str):
 		for p in range(players.shape[0]):
 			player_name = players['name'][p]
 			player_team = player_teams.loc[player_teams['name'] == player_name]['team_clan_name'].values[0]
+
+			# Get the tick of round start and end (mostly used in functions made by @EvilConundrum)
+			round_start_tick = round_start_ticks[r]
+			round_end_tick = round_start_ticks[r + 1]
+			round_freeze_end_tick = round_freeze_end_ticks[r]
+
 			# parse each player-round here
 			map_player_rounds += [[
 				matchid,                            										#00 match_id
@@ -94,29 +107,28 @@ def parse_demo(filename: str):
 				get_site_hit_time(site_hit_df, round_start_times, r),   #08 round_site_hit_time
 				get_bomb_plant_site(bomb_plants, r),                    #09 round_bomb_plant_site
 				get_bomb_plant_time(bomb_plants, r, round_start_times), #10 round_bomb_plant_time
-				get_bomb_planted(bomb_plants_df, r, player_name),       #11 round_bomb_planter
-				None,                                                   #12 round_defuse_time
-				is_bomb_defused(get_bomb_defuses_df, r, player_name), 	#13 round_bomb_is_defuser
-				round_lengths[r],                               		#14 round_length
-				round_results[r],                               		#15 round_result
-				None,                               					#16 round_timeout_called_before
-				player_name,                        					#17 player_name
-				None,                               					#18 player_flashes_used
-				None,                               					#19 player_smokes_used
-				None,                               					#20 player_grenades_used
-				None,                               					#21 player_molotovs_used
-				None,                               					#22 player_incendiaries_used
-				get_player_kill_count(player_kills_df, r, player_name), #23 player_kills
-				get_player_death(player_death_df, total_rounds_played_df_player_death, player_name, r),         #24 player_died                            										#22 player_died
-				get_player_spent(player_spent_amount_df, player_name, r), 										#25 player_spent_amount
-				[],                                 							                                #26 player_loadout
-				get_player_damage(player_damage_total_df, total_rounds_played_df, player_name, r+1),            #27 player_damage                   										#25 player_damage
-				get_round_first_kill(player_death_df, total_rounds_played_df_player_death, player_name, r+1),   #28 round_first_killer                            										#26 round_first_killer
-				get_round_first_death(player_death_df, total_rounds_played_df_player_death, player_name, r+1),  #29 round_first_death                             										#27 round_first_death
-				get_player_shots(player_headshots_df, 'head', r, player_name), 				#30 player_headshots
-				get_player_shots(player_upperbodyshots_df, 'upperbody', r, player_name), 	#31 player_upperbodyshots
-				get_player_shots(player_stomachshots_df, 'stomach', r, player_name), 		#32 player_stomachshots
-				get_player_shots(player_legshots_df, 'legs', r, player_name), 				#33 player_legshots
+				is_bomb_defused(get_bomb_defuses_df, r, player_name), 	#11 round_bomb_defuser
+				round_lengths[r],                               				#12 round_length
+				round_results[r],                               				#13 round_result
+				None,                               										#14 round_timeout_called_before
+				player_name,                        										#15 player_name
+				count_utils_thrown(utils_thrown, player_name, round_start_tick, round_end_tick, 'weapon_flashbang'),                               										#16 player_flashes_used
+				count_utils_thrown(utils_thrown, player_name, round_start_tick, round_end_tick, 'weapon_smokegrenade'),                               										#17 player_smokes_used
+				count_utils_thrown(utils_thrown, player_name, round_start_tick, round_end_tick, 'weapon_hegrenade'),                               										#18 player_grenades_used
+				count_utils_thrown(utils_thrown, player_name, round_start_tick, round_end_tick, 'weapon_molotov'),                               										#19 player_molotovs_used
+				count_utils_thrown(utils_thrown, player_name, round_start_tick, round_end_tick, 'weapon_incgrenade'),                               										#20 player_incendiaries_used
+				get_player_kill_count(player_kills_df, r, player_name), #21 player_kills
+				get_player_death(player_death_df, total_rounds_played_df_player_death, player_name, r),                               										#22 player_died
+				get_player_spent(player_spent_amount_df, total_rounds_played_df, player_name, r+1),                               										#23 player_spent_amount
+				get_player_loadout_at_round_freeze_end(loadouts, player_name, round_freeze_end_tick),                                 										#24 player_loadout
+				get_player_damage(player_damage_total_df, total_rounds_played_df, player_name, r+1),                               										#25 player_damage
+				get_round_first_kill(player_death_df, total_rounds_played_df_player_death, player_name, r+1),                               										#26 round_first_killer
+				get_round_first_death(player_death_df, total_rounds_played_df_player_death, player_name, r+1),                               										#27 round_first_death
+				get_player_shots(player_headshots_df, 'head', r, player_name), 				#28 player_headshots
+				get_player_shots(player_upperbodyshots_df, 'upperbody', r, player_name), 	#29 player_upperbodyshots
+				get_player_shots(player_stomachshots_df, 'stomach', r, player_name), 		#30 player_stomachshots
+				get_player_shots(player_legshots_df, 'legs', r, player_name), 				#31 player_legshots
+				get_bomb_planted(bomb_plants_df, r, player_name),                           #32 player_planted_bomb
 			]]
 
 	return map_player_rounds

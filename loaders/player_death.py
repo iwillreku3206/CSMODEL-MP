@@ -7,7 +7,7 @@ def get_total_rounds_played_with_tickset_df(parser: DemoParser, df: DataFrame):
 
 def get_player_death_df(parser: DemoParser):
     df = parser.parse_event("player_death").rename(columns={"user_name": "name"})
-    df['tick'] = df['tick'] - 64 * 6  # Adjust tick to get the true end of round + another 1 second buffer
+    df['tick'] = df['tick'] - 64 * 10  # Adjust tick to get the true end of round + another 1 second buffer
     return df 
 
 def get_player_death(player_death_df: DataFrame, total_rounds_played_df: DataFrame, player_name: str, round: int):
