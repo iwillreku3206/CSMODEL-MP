@@ -141,4 +141,4 @@ def parse_demo(filename: str):
 # if for scripts i forgor how to do
 
 dem = parse_demo('C:\\Users\\rek\\Downloads\\analyzing_cs2_demo\\28_68.dem')
-pd.DataFrame(dem).to_csv("test.csv")
+pd.DataFrame(dem).to_csv("test.csv", index=False)
