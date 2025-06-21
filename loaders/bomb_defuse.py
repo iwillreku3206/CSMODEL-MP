@@ -15,6 +15,9 @@ def get_bomb_defuses(parser: DemoParser, round_start_times_df: pd.DataFrame) -> 
         "bomb_defused", player=["player_name", "team_name"]
     )
 
+    if len(bomb_defuse_df) == 0:
+        return pd.DataFrame({"round_id": [], "user_name": [], "time": []})
+
     offset = 0
 
     # get times of tick
