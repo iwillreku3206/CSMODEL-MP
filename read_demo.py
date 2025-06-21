@@ -3,6 +3,7 @@
 from demoparser2 import DemoParser
 import pandas as pd
 import os
+import sys
 
 from loaders.bomb_plant import get_bomb_plant_df, get_bomb_plant_site, get_bomb_planter, get_bomb_plant_time
 from loaders.game_time_offset import get_game_time_offset
@@ -26,6 +27,7 @@ from loaders.player_utilities import get_utils_thrown, count_utils_thrown
 from loaders.player_loadout import get_all_loadouts_at_round_freeze_end, get_player_loadout_at_round_freeze_end
 from loaders.helper import get_round_start_ticks, get_round_freeze_end_ticks
 from loaders.round_timeout import get_timeout_df, get_timeout_round
+
 
 # read current directory
 # get list of demos
@@ -140,5 +142,9 @@ def parse_demo(filename: str):
 
 # if for scripts i forgor how to do
 
-dem = parse_demo('C:\\Users\\rek\\Downloads\\analyzing_cs2_demo\\28_68.dem')
-pd.DataFrame(dem).to_csv("test.csv", index=False)
+if len(sys.argv) < 2:
+	print('Usage: python read_demo.py <demo_name>.dem')
+	exit()
+
+dem = parse_demo(sys.argv[1])
+pd.DataFrame(dem).to_csv(sys.argv[1] + ".csv", index=False)
