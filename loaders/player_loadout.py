@@ -7,8 +7,14 @@ def get_all_loadouts_at_round_freeze_end(parser: DemoParser, round_freeze_end_ti
 
     return loadout_df
 
-def get_player_loadout_at_round_freeze_end(loadout_df: DataFrame, player_name: str, round_freeze_end_tick: int):
+def get_player_loadout_at_round_freeze_end(loadout_df: DataFrame, player_name: str, round_freeze_end_tick: int) -> str:
     player_loadout_df = loadout_df.loc[(loadout_df['tick'] == round_freeze_end_tick) &
                          (loadout_df['name'] == player_name)]['inventory']
-
-    return player_loadout_df
+    
+    # convert to list
+    player_loadout_list = player_loadout_df.tolist()[0] if not player_loadout_df.empty else []
+    
+    if len(player_loadout_list) == 0:
+        return ""
+    else:
+        return ", ".join(player_loadout_list)
