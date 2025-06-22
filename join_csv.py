@@ -92,24 +92,15 @@ for match_id, map_id in matches_maps_ids:
         df_match = pd.read_csv("csv/" + file_name)
         df_match["round_id"] = df_match["round_number"] + num_rounds - 1  # 0 indexing
 
-        # print unique round_ids as a list
-
         round_ids = list(map(int, df_match["round_id"].unique()))
         map_rounds = len(round_ids)
-
-        print(map_rounds)
         
-
-
-        print(
-            f"Parsing rounds from {file_name}: {map_rounds} rounds"
-        )
-
+        print(f"Parsing {file_name}: {map_rounds} rounds")
+        
         df_composite = pd.concat([df_composite, df_match])
-
         num_rounds += map_rounds
     except FileNotFoundError:
-        # print(f"{file_name} not found. Skipping.")
+        print(f"{file_name} not found. Skipping.")
         continue
     except Exception as e:
         print(f"File error: {e}")
