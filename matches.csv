@@ -1,0 +1,72 @@
+matchid,mapid,team1,team2,url,map
+0,0,Liquid,FaZe,https://www.hltv.org/matches/2382380/liquid-vs-faze-iem-dallas-2025,de_ancient
+0,1,Liquid,FaZe,https://www.hltv.org/matches/2382380/liquid-vs-faze-iem-dallas-2025,de_inferno
+1,2,3DMAX,GamerLegion,https://www.hltv.org/matches/2382376/3dmax-vs-gamerlegion-iem-dallas-2025,de_anubis
+1,3,3DMAX,GamerLegion,https://www.hltv.org/matches/2382376/3dmax-vs-gamerlegion-iem-dallas-2025,de_ancient
+1,4,3DMAX,GamerLegion,https://www.hltv.org/matches/2382376/3dmax-vs-gamerlegion-iem-dallas-2025,de_nuke
+2,5,Vitality,Legacy,https://www.hltv.org/matches/2382375/vitality-vs-legacy-iem-dallas-2025,de_inferno
+2,6,Vitality,Legacy,https://www.hltv.org/matches/2382375/vitality-vs-legacy-iem-dallas-2025,de_dust2
+3,7,MOUZ,BC.Game,https://www.hltv.org/matches/2382379/mouz-vs-bcgame-iem-dallas-2025,de_dust2
+3,8,MOUZ,BC.Game,https://www.hltv.org/matches/2382379/mouz-vs-bcgame-iem-dallas-2025,de_mirage
+4,9,Falcons,NRG,https://www.hltv.org/matches/2382382/falcons-vs-nrg-iem-dallas-2025,de_train
+4,10,Falcons,NRG,https://www.hltv.org/matches/2382382/falcons-vs-nrg-iem-dallas-2025,de_nuke
+5,11,G2,Lynn Vision,https://www.hltv.org/matches/2382378/g2-vs-lynn-vision-iem-dallas-2025,de_nuke
+5,12,G2,Lynn Vision,https://www.hltv.org/matches/2382378/g2-vs-lynn-vision-iem-dallas-2025,de_inferno
+6,13,The MongolZ,FURIA,https://www.hltv.org/matches/2382377/the-mongolz-vs-furia-iem-dallas-2025,de_anubis
+6,14,The MongolZ,FURIA,https://www.hltv.org/matches/2382377/the-mongolz-vs-furia-iem-dallas-2025,de_mirage
+7,15,Aurora,Heroic,https://www.hltv.org/matches/2382381/aurora-vs-heroic-iem-dallas-2025,de_dust2
+7,16,Aurora,Heroic,https://www.hltv.org/matches/2382381/aurora-vs-heroic-iem-dallas-2025,de_anubis
+7,17,Aurora,Heroic,https://www.hltv.org/matches/2382381/aurora-vs-heroic-iem-dallas-2025,de_mirage
+8,18,FaZe,BC.Game,https://www.hltv.org/matches/2382685/faze-vs-bcgame-iem-dallas-2025,de_mirage
+8,19,FaZe,BC.Game,https://www.hltv.org/matches/2382685/faze-vs-bcgame-iem-dallas-2025,de_anubis
+9,20,3DMAX,Legacy,https://www.hltv.org/matches/2382677/3dmax-vs-legacy-iem-dallas-2025,de_inferno
+9,21,3DMAX,Legacy,https://www.hltv.org/matches/2382677/3dmax-vs-legacy-iem-dallas-2025,de_dust2
+9,22,3DMAX,Legacy,https://www.hltv.org/matches/2382677/3dmax-vs-legacy-iem-dallas-2025,de_anubis
+10,23,Liquid,MOUZ,https://www.hltv.org/matches/2382683/liquid-vs-mouz-iem-dallas-2025,de_inferno
+10,24,Liquid,MOUZ,https://www.hltv.org/matches/2382683/liquid-vs-mouz-iem-dallas-2025,de_train
+11,25,GamerLegion,Vitality,https://www.hltv.org/matches/2382675/gamerlegion-vs-vitality-iem-dallas-2025,de_mirage
+11,26,GamerLegion,Vitality,https://www.hltv.org/matches/2382675/gamerlegion-vs-vitality-iem-dallas-2025,de_nuke
+12,27,NRG,Aurora,https://www.hltv.org/matches/2382686/nrg-vs-aurora-iem-dallas-2025,de_inferno
+12,28,NRG,Aurora,https://www.hltv.org/matches/2382686/nrg-vs-aurora-iem-dallas-2025,de_nuke
+13,29,Falcons,HEROIC,https://www.hltv.org/matches/2382684/falcons-vs-heroic-iem-dallas-2025,de_ancient
+13,30,Falcons,HEROIC,https://www.hltv.org/matches/2382684/falcons-vs-heroic-iem-dallas-2025,de_nuke
+13,31,Falcons,HEROIC,https://www.hltv.org/matches/2382684/falcons-vs-heroic-iem-dallas-2025,de_dust2
+14,32,Lynn Vision,FURIA,https://www.hltv.org/matches/2382678/lynn-vision-vs-furia-iem-dallas-2025,de_dust2
+14,33,Lynn Vision,FURIA,https://www.hltv.org/matches/2382678/lynn-vision-vs-furia-iem-dallas-2025,de_anubis
+15,34,G2,The MongolZ,https://www.hltv.org/matches/2382676/g2-vs-the-mongolz-iem-dallas-2025,de_inferno
+15,35,G2,The MongolZ,https://www.hltv.org/matches/2382676/g2-vs-the-mongolz-iem-dallas-2025,de_dust2
+16,36,Liquid,Aurora,https://www.hltv.org/matches/2382688/liquid-vs-aurora-iem-dallas-2025,de_inferno
+16,37,Liquid,Aurora,https://www.hltv.org/matches/2382688/liquid-vs-aurora-iem-dallas-2025,de_dust2
+17,38,FaZe,HEROIC,https://www.hltv.org/matches/2382687/faze-vs-heroic-iem-dallas-2025,de_ancient
+17,39,FaZe,HEROIC,https://www.hltv.org/matches/2382687/faze-vs-heroic-iem-dallas-2025,de_anubis
+17,40,FaZe,HEROIC,https://www.hltv.org/matches/2382687/faze-vs-heroic-iem-dallas-2025,de_mirage
+18,41,GamerLegion,FURIA,https://www.hltv.org/matches/2382680/gamerlegion-vs-furia-iem-dallas-2025,de_train
+18,42,GamerLegion,FURIA,https://www.hltv.org/matches/2382680/gamerlegion-vs-furia-iem-dallas-2025,de_mirage
+18,43,GamerLegion,FURIA,https://www.hltv.org/matches/2382680/gamerlegion-vs-furia-iem-dallas-2025,de_nuke
+19,44,3DMAX,G2,https://www.hltv.org/matches/2382679/3dmax-vs-g2-iem-dallas-2025,de_inferno
+19,45,3DMAX,G2,https://www.hltv.org/matches/2382679/3dmax-vs-g2-iem-dallas-2025,de_dust2
+19,46,3DMAX,G2,https://www.hltv.org/matches/2382679/3dmax-vs-g2-iem-dallas-2025,de_nuke
+20,47,MOUZ,Falcons,https://www.hltv.org/matches/2382689/mouz-vs-falcons-iem-dallas-2025,de_dust2
+20,48,MOUZ,Falcons,https://www.hltv.org/matches/2382689/mouz-vs-falcons-iem-dallas-2025,de_mirage
+21,49,Aurora,HEROIC,https://www.hltv.org/matches/2382690/aurora-vs-heroic-iem-dallas-2025,de_train
+21,50,Aurora,HEROIC,https://www.hltv.org/matches/2382690/aurora-vs-heroic-iem-dallas-2025,de_dust2
+21,51,Aurora,HEROIC,https://www.hltv.org/matches/2382690/aurora-vs-heroic-iem-dallas-2025,de_mirage
+22,52,Vitality,The MongolZ,https://www.hltv.org/matches/2382681/vitality-vs-the-mongolz-iem-dallas-2025,de_inferno
+22,53,Vitality,The MongolZ,https://www.hltv.org/matches/2382681/vitality-vs-the-mongolz-iem-dallas-2025,de_nuke
+22,54,Vitality,The MongolZ,https://www.hltv.org/matches/2382681/vitality-vs-the-mongolz-iem-dallas-2025,de_mirage
+23,55,GamerLegion,G2,https://www.hltv.org/matches/2382682/gamerlegion-vs-g2-iem-dallas-2025,de_ancient
+23,56,GamerLegion,G2,https://www.hltv.org/matches/2382682/gamerlegion-vs-g2-iem-dallas-2025,de_mirage
+23,57,GamerLegion,G2,https://www.hltv.org/matches/2382682/gamerlegion-vs-g2-iem-dallas-2025,de_nuke
+24,58,The MongolZ,Aurora,https://www.hltv.org/matches/2382691/the-mongolz-vs-aurora-iem-dallas-2025,de_dust2
+24,59,The MongolZ,Aurora,https://www.hltv.org/matches/2382691/the-mongolz-vs-aurora-iem-dallas-2025,de_mirage
+25,60,Falcons,Gamer Legion,https://www.hltv.org/matches/2382692/falcons-vs-gamerlegion-iem-dallas-2025,de_ancient
+25,61,Falcons,Gamer Legion,https://www.hltv.org/matches/2382692/falcons-vs-gamerlegion-iem-dallas-2025,de_nuke
+25,62,Falcons,Gamer Legion,https://www.hltv.org/matches/2382692/falcons-vs-gamerlegion-iem-dallas-2025,de_inferno
+26,63,MOUZ,The MongolZ,https://www.hltv.org/matches/2382693/mouz-vs-the-mongolz-iem-dallas-2025,de_inferno
+26,64,MOUZ,The MongolZ,https://www.hltv.org/matches/2382693/mouz-vs-the-mongolz-iem-dallas-2025,de_nuke
+27,65,Vitality,Falcons,https://www.hltv.org/matches/2382694/vitality-vs-falcons-iem-dallas-2025,de_dust2
+27,66,Vitality,Falcons,https://www.hltv.org/matches/2382694/vitality-vs-falcons-iem-dallas-2025,de_train
+27,67,Vitality,Falcons,https://www.hltv.org/matches/2382694/vitality-vs-falcons-iem-dallas-2025,de_inferno
+28,68,MOUZ,Vitality,https://www.hltv.org/matches/2382695/mouz-vs-vitality-iem-dallas-2025,de_dust2
+28,69,MOUZ,Vitality,https://www.hltv.org/matches/2382695/mouz-vs-vitality-iem-dallas-2025,de_mirage
+28,70,MOUZ,Vitality,https://www.hltv.org/matches/2382695/mouz-vs-vitality-iem-dallas-2025,de_inferno

@@ -416,4 +416,3 @@ $RECYCLE.BIN/
 # demo storage and csv output - Sean
 demos/
 *.dem
-*.csv
