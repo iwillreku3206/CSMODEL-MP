@@ -4,10 +4,7 @@ import pandas as pd
 def get_timeout_df(parser: DemoParser):
     vote_cast_df = parser.parse_event('vote_cast')
 
-    print("DEBUG::")
-    print(vote_cast_df)
     if len(vote_cast_df) == 0:
-        print('no timeouts')
         return pd.DataFrame({'round': [], 'team_clan_name': []})
 
     rounds_df = parser.parse_ticks(["total_rounds_played"],

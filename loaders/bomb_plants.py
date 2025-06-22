@@ -15,6 +15,9 @@ def load_bomb_plants(parser: pd.DataFrame) -> pd.DataFrame:
         "bomb_planted", player=["player_name", "team_name"]
     )
 
+    if len(bomb_plants_df) == 0:
+        return pd.DataFrame(columns=["round_id", "player_name"])
+
     # We create a column for round_id based on round start times
     bomb_plants_df["round_id"] = pd.cut(
         bomb_plants_df["tick"], bins=round_start_times, labels=False, right=True
