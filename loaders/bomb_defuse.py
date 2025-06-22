@@ -36,8 +36,6 @@ def get_bomb_defuses(parser: DemoParser, round_start_times_df: pd.DataFrame) -> 
     bomb_defuse_df = pd.merge(bomb_defuse_df, round_start_times_df, left_on="round_id", right_on=['total_rounds_played'], how="inner")
     bomb_defuse_df["time"] = bomb_defuse_df['game_time'] - bomb_defuse_df['round_start_time']
 
-    print(bomb_defuse_df)
-
     bomb_defuse_df = bomb_defuse_df[["round_id", "user_name", "time"]]
 
     return bomb_defuse_df
