@@ -140,11 +140,10 @@ def parse_demo(filename: str):
 	return map_player_rounds
 
 
-# if for scripts i forgor how to do
+if __name__ == "__main__":
+	if len(sys.argv) < 2:
+		print('Usage: python read_demo.py <demo_name>.dem')
+		exit()
 
-if len(sys.argv) < 2:
-	print('Usage: python read_demo.py <demo_name>.dem')
-	exit()
-
-dem = parse_demo(sys.argv[1])
-pd.DataFrame(dem).to_csv(sys.argv[1] + ".csv", index=False)
+	dem = parse_demo(sys.argv[1])
+	pd.DataFrame(dem).to_csv(sys.argv[1] + ".csv", index=False)
